@@ -53,8 +53,8 @@ export default async function (hre: HardhatRuntimeEnvironment) {
   console.log("Available today: ", limitData.available.toString());
 
   // L1 timestamp tends to be undefined in latest blocks. So it should find the latest L1 Batch first.
-  let l1BatchRange = await provider.getL1BatchBlockRange(await provider.getL1BatchNumber());
-  let l1TimeStamp = (await provider.getBlock(l1BatchRange ? l1BatchRange[1]: null)).l1BatchTimestamp;
+  let l1BatchRange = await provider.getL1BatchBlockRange(await provider.getL1BatchNumber()) || '';
+  let l1TimeStamp = (await provider.getBlock(l1BatchRange[1])).l1BatchTimestamp;
 
   console.log("L1 timestamp: ", l1TimeStamp);
   console.log("Limit will reset on timestamp: ", limitData.resetTime.toString());
